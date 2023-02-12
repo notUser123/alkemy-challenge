@@ -8,16 +8,13 @@ const submitHandler = e =>{
   const password = e.target.password.value
 
   if ( email !== "challenge@alkemy.org" && password !== "react"){
-    swal(
-      <h2>CREDENCIALES INVALIDAS</h2>
-    )
+    console.log("error de credenciales")
     return
   }
 
   console.log("OK estamos listos para enviar la informacion")
   axios.post('http://challenge-react.alkemy.org', { email, password})
   .then(res => {
-    swal(<h2>Ah ingresado correctamente</h2>)
     const tokenActual = res.data.token
     localStorage.setItem('token', tokenActual)
   })
