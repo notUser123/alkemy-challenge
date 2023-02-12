@@ -1,10 +1,23 @@
+import axios from "axios"
+import swal from "@sweetalert/with-react"
 import "./Login.css"
 
 const submitHandler = e =>{
   e.preventDefault()
   const email = e.target.email.value 
-  const pass = e.target.password.value
-  console.log(email, pass)
+  const password = e.target.password.value
+
+  if ( email !== "challenge@alkemy.org" && password !== "react"){
+    swal(
+      <h2>CREDENCIALES INVALIDAS</h2>
+    )
+    return
+  }
+
+  console.log("OK estamos listos para enviar la informacion")
+  axios.post('http://challenge-react.alkemy.org', { email, password})
+  .then(res => console.log(res.data))
+  
 }
 
 function Login() {
