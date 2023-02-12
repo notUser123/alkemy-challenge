@@ -16,7 +16,11 @@ const submitHandler = e =>{
 
   console.log("OK estamos listos para enviar la informacion")
   axios.post('http://challenge-react.alkemy.org', { email, password})
-  .then(res => console.log(res.data))
+  .then(res => {
+    swal(<h2>Ah ingresado correctamente</h2>)
+    const tokenActual = res.data.token
+    localStorage.setItem('token', tokenActual)
+  })
   
 }
 
