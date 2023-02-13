@@ -1,27 +1,32 @@
 import axios from "axios"
-import swal from "@sweetalert/with-react"
+import {useNavigate} from 'react-router-dom'
 import "./Login.css"
 
-const submitHandler = e =>{
-  e.preventDefault()
-  const email = e.target.email.value 
-  const password = e.target.password.value
+function Login() {
 
-  if ( email !== "challenge@alkemy.org" && password !== "react"){
-    console.log("error de credenciales")
-    return
+  const navigateTo = useNavigate()
+
+  const submitHandler = e =>{
+    e.preventDefault()
+    const email = e.target.email.value 
+    const password = e.target.password.value
+  
+    if ( email !== "challenge@alkemy.org" && password !== "react"){
+      console.log("error de credenciales")
+      localStorage.clear()
+      return
+    }
+  
+    console.log("OK estamos listos para enviar la informacion")
+    axios.post('http://challenge-react.alkemy.org', { email, password})
+    .then(res => {
+      const tokenActual = res.data.token
+      localStorage.setItem('token', tokenActual)
+      navigateTo('/listado')
+    })
+    
   }
 
-  console.log("OK estamos listos para enviar la informacion")
-  axios.post('http://challenge-react.alkemy.org', { email, password})
-  .then(res => {
-    const tokenActual = res.data.token
-    localStorage.setItem('token', tokenActual)
-  })
-  
-}
-
-function Login() {
   return (
     <div className="login-stack">
         <h2>Formulario</h2>
