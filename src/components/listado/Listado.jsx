@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 function Listado() {
 
-  const navigateTo = useNavigate()  
-  
-  useEffect( () => {
-    const token = localStorage.getItem("token")
-    if(token === null){
-        navigateTo("/")
-    }
-  }, [])
-
+  const token = localStorage.getItem('token')
   
   return (
-    <div>Listado</div>
+    <>
+      { !token && <Navigate to="/" />}
+      <h2>Listado</h2>
+    </>
   )
 }
 
